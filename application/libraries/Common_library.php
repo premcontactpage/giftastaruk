@@ -165,7 +165,7 @@ class common_library
     }
     
 
-    public function update_order($id,$txn_id)
+    public function update_order($id,$txn_id,$shipping_fee)
     {
         
         date_default_timezone_set("Asia/Kolkata");
@@ -194,7 +194,7 @@ class common_library
         $assign_code['order_number'] = 'ORD'.sprintf("%'.05d\n", $number);
         $assign_code['txn_id'] = $txn_id;
         $assign_code['created_datetime']   = $date;
-        $assign_code['shipping_fee']   = '90';
+        $assign_code['shipping_fee']   = $shipping_fee;
         $CI->db->where('id',$id);
         $CI->db->update('orders',$assign_code);
 

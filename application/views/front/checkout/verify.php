@@ -36,7 +36,7 @@ $error = "Payment Failed";
 
 if ($success === true)
 {
-    $final_status = $this->common_library->update_order($_SESSION['order_id'],$_SESSION['customer_id']);
+    $final_status = $this->common_library->update_order($_SESSION['order_id'],$_SESSION['customer_id'],SHIPPING_AMOUNT);
     unset($_SESSION['order_id']);
     unset($_SESSION['shopping_cart']);
     unset($_SESSION['shopping_cart_details']);
