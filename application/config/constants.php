@@ -88,7 +88,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('CURRENCY_SYMBOL','&#163;');
 define('SHIPPING_AMOUNT',0);
 //Change Below 
-define('MODE','LOCAL');
+define('MODE','TEST');
 // Change Above
 
 if(MODE == 'LIVE'){
