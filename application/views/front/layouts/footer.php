@@ -66,7 +66,7 @@ ul.list li a {
 					</ul>
 				</div>
 				<div class="fc-4">
-					<h3 class="footer-title">Payment Methods</h3>
+					<h3 class="footer-title">Payment Methods.</h3>
 					<ul class="social-icons" id="payment_method">
 						<li><img src="<?=base_url()?>assets/image/pay1.jpg"></li>
 						<li><img src="<?=base_url()?>assets/image/pay2.jpg"></li>
