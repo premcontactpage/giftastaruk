@@ -99,9 +99,9 @@
 								<h3><?=ucfirst($pr->product_name)?></h3>
 
 								<?php if($pr->offer_price>0){ ?>
-								<p class="price"><?= html_entity_decode(CURRENCY_SYMBOL).' '. number_format($pr->offer_price)?></p>
+								<p class="price"> &#163; <?= number_format($pr->offer_price)?></p>
 							    <?php }else{ ?>
-							    	<p class="price"><?= html_entity_decode(CURRENCY_SYMBOL).' '. number_format($pr->price)?></p>
+							    	<p class="price"> &#163; <?= number_format($pr->price)?></p>
 							    <?php } ?>
                                 
                                 <?php if($i==1){ ?> 
