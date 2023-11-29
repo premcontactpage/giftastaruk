@@ -100,7 +100,7 @@
 								<ul class="price-list">
 									<?php if($pr->offer_price>0){ ?>
 										<li class="rs"><?=number_format($pr->offer_price)?></li>
-										<li class="strike"><span style='color:#867e7e'><?= CURRENCY_SYMBOL ?></span>
+										<li class="strike"><span style='color:#867e7e'>&#163</span>
 										    <strike style='color:#867e7e'><span style='color:#867e7e'><?=number_format($pr->price)?><span></strike>
 										</li>
 										<!-- <li class="offer">(50%) Off</li> -->

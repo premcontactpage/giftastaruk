@@ -80,7 +80,7 @@ ul.list li a {
 	<div class="copy-right">
 		<div class="container">
 			<div class="copy-text">
-				<p>© <?=date('Y')?> Joyfulsurprises.</p>
+				<p>© <?=date('Y')?> Gift A Star.</p>
 			</div>
 		</div>	
 	</div>

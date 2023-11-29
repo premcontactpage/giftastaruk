@@ -125,7 +125,8 @@ class Default_controller extends CI_Controller
 
     public function checkout()
     {
-        $data['state'] = $this->common_model->fetch_data('state',array('status'=>'0'));
+        $data['state'] = $this->common_model->fetch_data('state',array('status'=>'1'));
+        $data['cities'] = $this->common_model->fetch_data('cities',array('status'=>'1'));
         $this->load->view('front/check_out',$data);
     }
 
@@ -547,7 +548,7 @@ class Default_controller extends CI_Controller
 		$this->load->view('admin/Products/index',$data);
 		$this->load->view('admin/includes/footer');
     }
-
+    
     public function create_product()
     {
     	$this->check_login();
@@ -1239,7 +1240,60 @@ class Default_controller extends CI_Controller
             echo json_encode(array('result'=>'error'));
         }
     }
-    
+    public function add_country(){
+        $data = [];
+        // fetch_all_table
+        $data['states'] = $this->common_model->fetch_all_table('state',1);
+        $this->load->view('admin/includes/header');
+        $this->load->view('admin/country/country',$data);
+		$this->load->view('admin/includes/footer');
+    }
+    public function fetch_cities(){
+        $state_id = $this->common_model->get_state_id($_POST['state_name']);
+        $cities = $this->common_model->fetch_cities($state_id['id']);
+        if(count($cities) > 0){
+            echo json_encode($cities);
+        }
+        else{
+            echo json_encode(array());
+        }
+        
+    }
+    public function add_city(){
+        if(isset($_POST) && !empty($_POST['city'])){
+            $data = [
+                'city_name'=>htmlspecialchars($_POST['city']),
+                'status'=>1,
+                'state_id'=>htmlspecialchars($_POST['state']),
+            ];
+           $cities = $this->common_model->create('cities',$data);
+           if($cities){
+                $this->session->set_flashdata('success','City Added');
+           }
+            redirect(base_url('/add-countries'));
+        }
+        else{
+            redirect(base_url('/dashboard'));
+        }
+    }
+    public function add_state(){
+        if(isset($_POST) && !empty($_POST['state'])){
+            $data = [
+                'state_name' => htmlspecialchars($_POST['state']),
+                'status' => 1,
+                'log_date_created'=> date('Y-m-d h:i:s'),
+                'created_by'=>'superadmin'
+            ];
+            $state = $this->common_model->create('state',$data);
+            if($state){
+                $this->session->set_flashdata('success','State Added');
+            }
+            redirect(base_url('/add-countries'));
+        }
+        else{
+            redirect(base_url('/dashboard'));
+        }
+    }
     public function fetch_order_details_ajax()
     {
         $output = '';

@@ -194,7 +194,7 @@ a, a:hover, a:active, a:visited, a:focus {
                         <ul class="price-list1">
                           <?php $a_price = '0.00'; if($product[0]->offer_price>0){ $a_price = number_format($product[0]->offer_price,2); ?>
                             <li class="rs" style="margin-right: 4px;"><?=number_format($product[0]->offer_price)?></li>
-                            <li class="strike" style="margin-right: 4px;"><span style='color:#867e7e'>₹</span>
+                            <li class="strike" style="margin-right: 4px;"><span style='color:#867e7e'>&#163</span>
                         <strike style='color:#867e7e'><span style='color:#867e7e'><?=number_format($product[0]->price)?><span></strike></li>
                             <!-- <li class="offer">(50%) Off</li> -->
                           <?php }else{ $a_price = number_format($product[0]->price,2); ?>

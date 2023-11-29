@@ -6,7 +6,7 @@
 }
 select.input-box
 {
-    height:48px;
+    height:40px;
 }
 
    
@@ -86,6 +86,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<div class="col-md-6">
 									<input type="text" class="input-box w-full" name="user_landmark" placeholder="Landmark">
 								</div>
+								
 								<div class="col-md-6">
 									<input type="text" class="input-box w-full" name="city" placeholder="City" required="">
 								</div>
@@ -98,11 +99,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 										<?php } } ?>
 									</select>
 								</div>
-								<div class="col-md-4">
-									<select class="input-box w-full" name="country" required="">
-										<option>India</option>
-									</select>
-								</div>
+								
 								<div class="col-md-4">
 									<input type="number" class="input-box w-full" name="pincode" required="" placeholder="PIN Code">
 								</div>
@@ -269,24 +266,28 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 									<input type="text" class="input-box w-full" name="user_landmark" placeholder="Landmark">
 								</div>
 								<div class="col-md-6">
-									<input type="text" class="input-box w-full" name="city" placeholder="City" required="">
+									<select class="input-box w-full" name="country" readonly>
+										<option>United Kindom</option>
+									</select>
 								</div>
 								
 								<div class="col-md-4">
-									<select class="input-box w-full" name="state" required="">
+									<select class="input-box w-full" name="state" onChange="fetchCities(this.value)" required="">
 										<option value="">select state</option>
 										<?php if(count($state)>0){ foreach($state as $s){ ?>
 											<option value="<?=$s->state_name?>"><?=$s->state_name?></option>
 										<?php } } ?>
 									</select>
 								</div>
+								
+								
 								<div class="col-md-4">
-									<select class="input-box w-full" name="country" required="">
-										<option>India</option>
+									<select id="cities_list" class="input-box w-full" name="city" required="">
+										<option value="">select city</option>
 									</select>
 								</div>
 								<div class="col-md-4">
-									<input type="number" class="input-box w-full" name="pincode" required="" placeholder="PIN Code">
+									<input type="text" class="input-box w-full" name="pincode" required="" placeholder="Zip Code">
 								</div>
 								<div class="col-md-12">
 									<input type="text" class="input-box w-full numbers" name="alt_mobile" pattern="[6789][0-9]{9}" required="" placeholder="Phone Number">
@@ -347,7 +348,29 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 		</div>	
 	</main>
 	<?php include 'layouts/footer.php'; ?>
-
+<script>
+	function fetchCities(state){
+			const baseURL = "<?php echo base_url();?>";
+			$.ajax({
+			type: "POST",
+			url: baseURL+'fetch-cities',
+			data: {state_name:state},
+			dataType: "text",
+			success: function(response){
+				let data = JSON.parse(response);
+				if(data.length > 0){
+					var output = [];
+					$.each(data, function(key, value)
+					{
+					output.push('<option value="'+ value.city_name +'">'+ value.city_name +'</option>');
+					});
+			
+						$('#cities_list').html(output.join(''));
+					}
+				}
+		});
+		}
+</script>
 	<script type="text/javascript">
 		$("form").submit(function(e) {
          	$('#cover-spin').show();

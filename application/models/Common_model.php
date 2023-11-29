@@ -33,6 +33,7 @@ class Common_model extends CI_Model
 
    public function create($tbl,$post)
    {
+      
             $this->db->insert($tbl,$post);
    	 return $this->db->insert_id(); 
    }
@@ -60,7 +61,24 @@ class Common_model extends CI_Model
      $this->db->where('is_deleted','0');
      return $this->db->get()->result();
    }
-
+   public function fetch_all_table($table,$sts){
+     $this->db->select('*');
+     $this->db->from($table);
+     $this->db->where('status',$sts);
+     return $this->db->get()->result_array();
+   }
+   public function fetch_cities($id){
+     $this->db->select('*');
+     $this->db->from('cities');
+     $this->db->where('state_id',$id);
+     return $this->db->get()->result_array();
+   }
+   public function get_state_id($name){
+    $this->db->select('id');
+     $this->db->from('state');
+     $this->db->where('state_name',$name);
+     return $this->db->get()->row_array();
+   }
    public function fetch_orders($status)
    {
      $this->db->select('orders.*,user_address.user_fname,user_address.user_lname,user_address.alt_mobile,user_address.user_email');

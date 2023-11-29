@@ -59,6 +59,10 @@ $route['find-your-star'] = 'Default_controller/find_star';
 $route['review/(:any)'] = 'Default_controller/product_review/$1';
 $route['fetch-review'] = 'Default_controller/fetch_review';
 
+$route['add-countries'] = 'Default_controller/add_country';
+$route['add-state'] = 'Default_controller/add_state';
+$route['add-city'] = 'Default_controller/add_city';
+$route['fetch-cities'] = 'Default_controller/fetch_cities';
 
 $route['test'] = 'Default_controller/test';
 $route['apply'] = 'Default_controller/apply_coupon';

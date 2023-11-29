@@ -379,6 +379,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, span {
           </a>
         </li>
         <li>
+          <a href="<?=base_url()?>add-countries">
+            <i class="fa fa-globe"></i> <span>Countries</span>
+          </a>
+        </li>
+        <li>
           <a href="<?=base_url()?>options">
             <i class="fa fa-align-justify"></i> <span>Options</span>
           </a>
