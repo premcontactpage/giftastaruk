@@ -24,8 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://localhost/joyful/';
-$config['base_url'] = 'http://localhost:8000';
-// $config['base_url'] = 'https://giftastar.uk';
+// $config['base_url'] = 'http://localhost:8000';
+$config['base_url'] = 'https://giftastar.uk';
 
 /*
 |--------------------------------------------------------------------------
