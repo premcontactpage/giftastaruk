@@ -674,6 +674,7 @@ png images background
 	position: absolute;
 	content: "\00A3";
 	left: -15px;
+	top:-3px;
 	font-family: FontAwesome;
 	font-weight: bold;
 }
