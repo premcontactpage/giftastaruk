@@ -9,7 +9,7 @@ select.input-box
     height:40px;
 }
 
-   
+
 </style>
 
 
@@ -25,7 +25,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
        for($c=0;$c<count($_SESSION['shopping_cart_details']);$c++)
        {
        	  $product = $this->common_library->product_data($_SESSION['shopping_cart_details'][$c]['pid']);
-       	  
+
        	  if($product[0]->offer_price>0)
        	  {
             $product_price = (int)$product[0]->offer_price;
@@ -34,7 +34,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
        	  {
        	  	$product_price = (int)$product[0]->price;
        	  }
-       	  
+
           $amount  += (int)$product_price;
        }
 	}
@@ -44,13 +44,13 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 ?>
 <?php if($device=='mobile'){ ?>
 	<main>
-		
+
 		<div class="inner-banner">
 			<div class="container">
 				<p>Checkout</p>
 			</div>
 		</div>
-		
+
 		<div class="page-sec">
 			<div class="container">
 				<div class="row">
@@ -58,10 +58,10 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 					<form id="myform" action="post">
 						<div class="check-left-box">
 							<h2>Contact Information</h3>
-							
+
 							<div class="row">
 								<div class="col-md-6">
-									<input type="text" class="input-box w-full" name="contact_user_name" placeholder="Name">	
+									<input type="text" class="input-box w-full" name="contact_user_name" placeholder="Name">
 								</div>
 								<div class="col-md-6">
 									<input type="text" class="input-box w-full numbers" name="contact_mobile" placeholder="Mobile number">
@@ -69,13 +69,13 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<span style="color:blue;font-size:13px;">★ We will contact to this number if there is any issue with the order.</span>
 							</div>
 							<br>
-							
+
 							<h2>Delivery Information</h3>
-							
-							<input type="email" class="input-box w-full" name="user_email" placeholder="Email address" required="">	
+
+							<input type="email" class="input-box w-full" name="user_email" placeholder="Email address" required="">
 							<div class="row">
 								<div class="col-md-6">
-									<input type="text" class="input-box w-full" name="user_fname" placeholder="First Name" required="">	
+									<input type="text" class="input-box w-full" name="user_fname" placeholder="First Name" required="">
 								</div>
 								<div class="col-md-6">
 									<input type="text" class="input-box w-full" name="user_lname" placeholder="Last Name" required="">
@@ -86,20 +86,29 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<div class="col-md-6">
 									<input type="text" class="input-box w-full" name="user_landmark" placeholder="Landmark">
 								</div>
-								
-								<div class="col-md-6">
-									<input type="text" class="input-box w-full" name="city" placeholder="City" required="">
+
+                <div class="col-md-6">
+									<select class="input-box w-full" name="country" readonly>
+										<option>United Kindom</option>
+									</select>
 								</div>
-								
+
 								<div class="col-md-4">
-									<select class="input-box w-full" name="state" required="">
+									<select class="input-box w-full" name="state" onChange="fetchCities(this.value)" required="">
 										<option value="">select state</option>
 										<?php if(count($state)>0){ foreach($state as $s){ ?>
 											<option value="<?=$s->state_name?>"><?=$s->state_name?></option>
 										<?php } } ?>
 									</select>
 								</div>
-								
+
+
+								<div class="col-md-4">
+									<select id="cities_list" class="input-box w-full" name="city" required="">
+										<option value="">select city</option>
+									</select>
+								</div>
+
 								<div class="col-md-4">
 									<input type="number" class="input-box w-full" name="pincode" required="" placeholder="PIN Code">
 								</div>
@@ -110,11 +119,11 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 							</div>
 							<input type="submit" class="btn shop" value="Continue Shipping"><br><br>
 							<a href="<?=base_url()?>"> < Return to Home</a>
-						</div>	
+						</div>
 						</from>
 					</div>
-				
-					
+
+
 					<div class="col-md-5 check-right coupon" style="display:none;">
 						<div class="payment-box" style="background-color: #fff;box-shadow: rgb(100 100 111 / 46%) 0px 7px 29px 0;">
 							<h2>Apply Coupon</h2>
@@ -125,38 +134,38 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<div class="col-md-4">
 									<button type="button" class="btn-aply apply_code">Apply</button>
 								</div>
-								
-							</div>	
+
+							</div>
 							<div style="text-align:left;"><span class="msg" style="color:green;display:none;">Applied successfully</span></div>
-							
-							
+
+
 							<h2 class="mt-10">Payment Details</h2>
 							<div class="pay-box">
 								<div class="payment-left"><p>Sub total</p></div>
 								<div class="payment-right"><p class="rs sub_total"><?=$amount?></p></div>
 							</div>
-							
+
 							<!--<div class="pay-box">-->
 							<!--	<div class="payment-left"><p>Shipping</p></div>-->
 							<!--	<div class="payment-right"><p style="color:green"><b>Free</b></p></div>-->
 							<!--</div>-->
-							
+
 							<!--<div class="pay-box">
 								<div class="payment-left"><p>Coupon Amount</p></div>
 								<div class="payment-right"><p class="rs">500</p></div>
 							</div> -->
-							
+
 							<div class="pay-box">
 								<div class="payment-left"><p>Shipping charges</p></div>
 								<div class="payment-right"><p class="rs shipping"><?=$shipping?></p></div>
 							</div>
 							<span class="coupon_here"></span>
-							
+
 							<div class="pay-box t-amount">
 								<div class="payment-left"><p>Total Amount</p></div>
 								<div class="payment-right"><p class="rs total"><?=$amount+$shipping?></p></div>
 							</div>
-							
+
 							<div class="row">
 								<div class="col-md-4">
 									<button class="btn-aply" id="payment">Continue to payment</button>
@@ -164,17 +173,17 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 									<br>
 									<a href="javascript:void[0]" id="return" style="margin-left: 55px;">< Return to Information</a>
 								</div>
-								
+
 							</div>
-							
+
 						</div>
-						
-					</div>					
+
+					</div>
 				</div>
 			</div>
-		</div>	
-		
-		
+		</div>
+
+
 	</main>
 	<?php include 'layouts/footer.php'; ?>
 
@@ -193,7 +202,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
             contentType: false, //this is requireded please see answers above
             processData: false, //this is requireded please see answers above
             //cache: false, //not sure but works for me without this
-            success: function(data) 
+            success: function(data)
             {
             	if(data=='success')
             	{
@@ -202,45 +211,45 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
             		$('#cover-spin').hide();
             	}
             }, //You missed this
-            error: function() 
+            error: function()
             {
                 	alert("Something went wrong");
             }
             });
          });
-         
+
          $('#payment').click(function(){
              window.location.href = '<?=base_url()?>payment';
             //  window.location.href = '<?=base_url()?>pay';
          })
-         
+
          $('#return').click(function(){
              $('.coupon').hide();$('.address').show();
          })
 	</script>
 	<?php }else{ ?>
-	
+
 	<main>
-		
+
 		<div class="inner-banner">
 			<div class="container">
 				<p>Checkout</p>
 			</div>
 		</div>
-		
+
 		<div class="page-sec">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-7 check-left">
 					<form id="myform" action="post" class="checkout_form">
 						<div class="check-left-box">
-							
-							
+
+
 							<h2>Contact Information</h3>
-							
+
 							<div class="row">
 								<div class="col-md-6">
-									<input type="text" class="input-box w-full" name="contact_user_name" placeholder="Name">	
+									<input type="text" class="input-box w-full" name="contact_user_name" placeholder="Name">
 								</div>
 								<div class="col-md-6">
 									<input type="text" class="input-box w-full numbers" name="contact_mobile" placeholder="Mobile number">
@@ -248,13 +257,13 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<span style="color:blue;font-size: 15px;margin-left: 17px">★ We will contact to this number if there is any issue with the order.</span>
 							</div>
 							<br>
-							
+
 							<h2>Delivery Information</h3>
-							<input type="email" class="input-box w-full" name="user_email" placeholder="Email address" required="">	
-							
+							<input type="email" class="input-box w-full" name="user_email" placeholder="Email address" required="">
+
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
-									<input type="text" class="input-box w-full" name="user_fname" placeholder="First Name" required="">	
+									<input type="text" class="input-box w-full" name="user_fname" placeholder="First Name" required="">
 								</div>
 								<div class="col-md-6">
 									<input type="text" class="input-box w-full" name="user_lname" placeholder="Last Name" required="">
@@ -270,7 +279,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 										<option>United Kindom</option>
 									</select>
 								</div>
-								
+
 								<div class="col-md-4">
 									<select class="input-box w-full" name="state" onChange="fetchCities(this.value)" required="">
 										<option value="">select state</option>
@@ -279,8 +288,8 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 										<?php } } ?>
 									</select>
 								</div>
-								
-								
+
+
 								<div class="col-md-4">
 									<select id="cities_list" class="input-box w-full" name="city" required="">
 										<option value="">select city</option>
@@ -295,10 +304,10 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								</div>
 							</div>
 							<input type="submit" class="btn shop" value="Continue Shipping">
-						</div>	
+						</div>
 					</div>
 				</from>
-					
+
 					<div class="col-md-5 check-right">
 						<div class="payment-box" style="background-color: #fff;box-shadow: rgb(100 100 111 / 46%) 0px 7px 29px 0;">
 							<h2>Apply Coupon</h2>
@@ -309,8 +318,8 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<div class="col-md-4">
 									<button class="btn-aply apply_code" type="button">Apply</button>
 								</div>
-								
-							</div>	
+
+							</div>
 							<div style="text-align:left;"><span class="msg" style="color:green;display:none;">Applied successfully</span></div>
 							<h2 class="mt-10">Payment Details</h2>
 							<div class="pay-box">
@@ -325,7 +334,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<div class="payment-left"><p>Discount</p></div>
 								<div class="payment-right"><p class="rs">1000</p></div>
 							</div>
-							
+
 							<div class="pay-box">
 								<div class="payment-left"><p>Coupon Amount</p></div>
 								<div class="payment-right"><p class="rs">500</p></div>
@@ -335,42 +344,20 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 								<div class="payment-right"><p class="rs shipping"><?=$shipping?></p></div>
 							</div>
 							<span class="coupon_here"></span>
-							
+
 							<div class="pay-box t-amount">
 								<div class="payment-left"><p>Total Amount</p></div>
 								<div class="payment-right"><p class="rs total"><?=$amount+$shipping?></p></div>
 							</div>
-							
+
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</main>
 	<?php include 'layouts/footer.php'; ?>
-<script>
-	function fetchCities(state){
-			const baseURL = "<?php echo base_url();?>";
-			$.ajax({
-			type: "POST",
-			url: baseURL+'fetch-cities',
-			data: {state_name:state},
-			dataType: "text",
-			success: function(response){
-				let data = JSON.parse(response);
-				if(data.length > 0){
-					var output = [];
-					$.each(data, function(key, value)
-					{
-					output.push('<option value="'+ value.city_name +'">'+ value.city_name +'</option>');
-					});
-			
-						$('#cities_list').html(output.join(''));
-					}
-				}
-		});
-		}
-</script>
+
 	<script type="text/javascript">
 		$("form").submit(function(e) {
          	$('#cover-spin').show();
@@ -386,7 +373,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
             contentType: false, //this is requireded please see answers above
             processData: false, //this is requireded please see answers above
             //cache: false, //not sure but works for me without this
-            success: function(data) 
+            success: function(data)
             {
             	if(data=='success')
             	{
@@ -399,16 +386,16 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
             	    window.location.href = '<?=base_url()?>';
             	}
             }, //You missed this
-            error: function() 
+            error: function()
             {
                 	swal("Alert", "Something went wrong.", "error");
             }
             });
          });
-         
+
 	</script>
 	<?php } if($amount==''){ session_destroy() ; ?>
-	
+
 	<script type="text/javascript">
 	alert('Your cart is empty');
 	window.location.href="<?=base_url()?>";
@@ -416,7 +403,7 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 	<?php } ?>
 	<script>
 	    fbq('track', 'InitiateCheckout');
-	    
+
 	    $('.apply_code').click(function(){
 	        var code = $('.code').val();
 	        if(code=='')
@@ -427,9 +414,9 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 	        else
 	        {
 	            $.post('<?=base_url()?>apply',{code:code,subtotal:"<?=$amount?>"},function(data){
-	                
+
 	                var respo = JSON.parse(data);
-	                
+
 	                if(respo.result=='error')
 	                {
 	                    $('.msg').hide();
@@ -445,12 +432,35 @@ if(isset($_SESSION['shopping_cart_details']) && !empty($_SESSION['shopping_cart_
 	                {
 	                    $('.total').text(respo.total);
 	                    $('.coupon_here').html('<div class="pay-box"><div class="payment-left"><p>Coupon discount(-)</p></div><div class="payment-right"><p class="rs shipping">'+respo.dicount+'</p></div></div>');
-	                
+
 	                    $('.msg').show();
 	                }
-	                
+
 	            })
 	        }
 	    })
-	    
+
 	</script>
+  <script>
+  	function fetchCities(state){
+  			const baseURL = "<?php echo base_url();?>";
+  			$.ajax({
+  			type: "POST",
+  			url: baseURL+'fetch-cities',
+  			data: {state_name:state},
+  			dataType: "text",
+  			success: function(response){
+  				let data = JSON.parse(response);
+  				if(data.length > 0){
+  					var output = [];
+  					$.each(data, function(key, value)
+  					{
+  					output.push('<option value="'+ value.city_name +'">'+ value.city_name +'</option>');
+  					});
+
+  						$('#cities_list').html(output.join(''));
+  					}
+  				}
+  		});
+  		}
+  </script>

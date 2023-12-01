@@ -87,7 +87,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 // Chage Here to Switch Between Test,Live ex: MODE='TEST',MODE='LIVE'
 define('CURRENCY_SYMBOL','&#163;');
 define('SHIPPING_AMOUNT',0);
-//Change Below 
+//Change Below
 define('MODE','TEST');
 // Change Above
 
